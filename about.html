@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Victor Nyairabu | Medical Microbiologist</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General Styles - Classy and Modern */
+        body {
+            font-family: 'Montserrat', sans-serif; /* A modern, clean font */
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8fc; /* Light, airy background */
+            color: #333; /* Darker text for readability */
+        }
+
+        /* Header - Minimal and Clean */
+        .header {
+            background-color: #fff; /* White header */
+            color: #1a1a2e; /* Darker text for logo and nav */
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+        }
+
+        .logo {
+            font-size: 1.8em; /* Slightly larger logo */
+            font-weight: 700; /* Bold font weight */
+            color: #c8a2c8; /* Purple accent */
+        }
+
+        .logo span {
+            color: #1a1a2e;
+        }
+
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav li {
+            margin-left: 25px; /* Increased spacing */
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #1a1a2e;
+            font-size: 1.1em; /* Slightly larger nav text */
+            transition: color 0.3s ease; /* Smooth hover effect */
+        }
+
+        .nav a:hover {
+            color: #c8a2c8;
+        }
+
+        .nav a.active {
+            font-weight: 600; /* Active link bold */
+            /* Add a subtle underline or different highlight */
+        }
+
+        /* About Section - Modern Grid Layout */
+        .about-section {
+            padding: 80px 20px;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr; /* Image and content ratio */
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px; /* Rounded image */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Image shadow */
+        }
+
+        .image-border {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid #c8a2c8; /* Purple border */
+            border-radius: 10px;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-size: 2.8em; /* Larger title */
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+        }
+
+        .section-title .highlight {
+            color: #c8a2c8; /* Purple highlight */
+        }
+
+        .intro-text {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6; /* Increased line height for readability */
+            margin-bottom: 30px;
+        }
+
+        /* Education/Passion Cards - Modern Cards */
+        .education-card, .passion-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Card shadow */
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .education-card i, .passion-card i {
+            font-size: 2em;
+            color: #c8a2c8; /* Purple icon */
+            margin-bottom: 15px;
+        }
+
+        .education-card h3, .passion-card h3 {
+            font-size: 1.5em;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .education-card p, .passion-card p {
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Footer - Minimalist */
+        .glass-footer {
+            background-color: #fff; /* White footer */
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+        }
+
+        .social-links {
+            margin-bottom: 15px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 15px;
+            font-size: 1.3em;
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #c8a2c8;
+        }
+
+        .back-to-top {
+            margin-top: 15px;
+        }
+
+        .back-to-top a {
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .back-to-top a:hover {
+            color: #c8a2c8;
+        }
+
+        /* Animations (you'll need to define these in animations.css) */
+        /* Examples:
+        .swing-in-top-fwd { ... }
+        .scale-in-center { ... }
+        */
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">Victor<span>.N</span></div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="recipe1.html">Roasted Beef</a></li>
+                <li><a href="recipe2.html">Pilau</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <div class="about-image swing-in-top-fwd">
+                <img src="./profile.jpg" alt="Victor Nyairabu">
+                <div class="image-border"></div>
+            </div>
+            <div class="about-content">
+                <h2 class="section-title">About <span class="highlight">Me</span></h2>
+                <p class="intro-text">What's up! I'm Victor Nyairabu, a Medical Microbiology student at JKUAT with a passion for the microscopic world.</p>
+
+                <div class="education-card scale-in-center">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Academic Hustle</h3>
+                    <p>Currently tackling my Bachelor's in Medical Microbiology, diving deep into the world of microorganisms and their impact on health.</p>
+                </div>
+
+                <div class="passion-card scale-in-center">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Research Vibes</h3>
+                    <p>Big on antimicrobial resistance, epidemiology, and finding new ways to diagnose those pesky infectious diseases.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="glass-footer">
+        <div class="social-links">
+            <a href="https://instagram.com/nyairas_" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:victornyairabu3@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>© 2023 Victor Nyairabu. All rights reserved.</p>
+        <div class="back-to-top">
+            <a href="#about" class="btn-to-top"><i class="fas fa-arrow-up"></i></a>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

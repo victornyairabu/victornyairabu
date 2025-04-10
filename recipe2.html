@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentic Pilau | Victor's Cuisine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF9E3D;
+            --secondary-color: #6C63FF;
+            --accent-color: #48BB78;
+            --dark-color: #2D3748;
+            --light-color: #F7FAFC;
+            --text-color: #1A202C;
+            --text-light: #718096;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .recipe-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .recipe-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .recipe-title {
+            font-size: 3rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .recipe-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .recipe-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .ingredients-section, .instructions-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title i {
+            color: var(--primary-color);
+        }
+        
+        .ingredient-list {
+            list-style: none;
+        }
+        
+        .ingredient-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .ingredient-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            accent-color: var(--primary-color);
+        }
+        
+        .ingredient-name {
+            font-weight: 500;
+        }
+        
+        .instruction-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .instruction-step {
+            position: relative;
+            padding-left: 3.5rem;
+            margin-bottom: 1.5rem;
+            counter-increment: step-counter;
+        }
+        
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .notes-section {
+            grid-column: span 2;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            margin-top: 2rem;
+        }
+        
+        .note-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .note-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 3D Nutrition Facts */
+        .nutrition-section {
+            grid-column: span 2;
+            perspective: 1000px;
+            margin-top: 3rem;
+        }
+        
+        .nutrition-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform-style: preserve-3d;
+            transform: rotateY(10deg);
+            transition: transform 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nutrition-card:hover {
+            transform: rotateY(0deg);
+        }
+        
+        .nutrition-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .nutrition-title {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .nutrition-item {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(255, 158, 61, 0.05);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+        
+        .nutrition-item:hover {
+            transform: translateY(-5px) translateZ(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .nutrition-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+        
+        .nutrition-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .nutrition-percent {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.2rem 0.5rem;
+            background: rgba(255, 158, 61, 0.1);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+        
+        .video-container {
+            grid-column: span 2;
+            margin-top: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .recipe-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .notes-section, .nutrition-section, .video-container {
+                grid-column: span 1;
+            }
+            
+            .recipe-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<header class="header">
+    <div class="logo">Victor<span>.N</span></div>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="menu.html" class="active">Menu</a></li>
+        </ul>
+    </nav>
+</header>
+<body>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <h1 class="recipe-title">Authentic Pilau</h1>
+            <img src="./BeefPilau.jpg" alt="Pilau" class="recipe-image">
+        </div>
+        
+        <div class="recipe-content">
+            <div class="ingredients-section">
+                <h2 class="section-title"><i class="fas fa-shopping-basket"></i> Ingredients</h2>
+                
+                <h3>Pilau Masala - Pilau Spices</h3>
+                <ul class="ingredient-list">
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing1" class="ingredient-checkbox">
+                        <label for="ing1" class="ingredient-name">1 teaspoon cloves</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing2" class="ingredient-checkbox">
+                        <label for="ing2" class="ingredient-name">2 tablespoon cumin seeds</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing3" class="ingredient-checkbox">
+                        <label for="ing3" class="ingredient-name">1/2 tablespoon black peppercorn seeds</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing4" class="ingredient-checkbox">
+                        <label for="ing4" class="ingredient-name">12 pods Cardamon</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing5" class="ingredient-checkbox">
+                        <label for="ing5" class="ingredient-name">1 stick cinnamon</label>
+                    </li>
+                </ul>
+                
+                <h3>Rice Pilau</h3>
+                <ul class="ingredient-list">
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing6" class="ingredient-checkbox">
+                        <label for="ing6" class="ingredient-name">2 cups basmati rice</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing7" class="ingredient-checkbox">
+                        <label for="ing7" class="ingredient-name">5 potatoes medium size [peeled and cut into quarters]</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing8" class="ingredient-checkbox">
+                        <label for="ing8" class="ingredient-name">¼ cup vegetable oil</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing9" class="ingredient-checkbox">
+                        <label for="ing9" class="ingredient-name">2 Red onions medium size [thinly sliced]</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing10" class="ingredient-checkbox">
+                        <label for="ing10" class="ingredient-name">4 cloves garlic minced</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing11" class="ingredient-checkbox">
+                        <label for="ing11" class="ingredient-name">2 tablespoons ginger minced</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing12" class="ingredient-checkbox">
+                        <label for="ing12" class="ingredient-name">1 serrano chile finely chopped</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing13" class="ingredient-checkbox">
+                        <label for="ing13" class="ingredient-name">1 tablespoon pilau masala</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing14" class="ingredient-checkbox">
+                        <label for="ing14" class="ingredient-name">2 beef stock cubes</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing15" class="ingredient-checkbox">
+                        <label for="ing15" class="ingredient-name">¼ cup fresh cilantro roughly chopped</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing16" class="ingredient-checkbox">
+                        <label for="ing16" class="ingredient-name">1 lb beef sirloin cubed</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing17" class="ingredient-checkbox">
+                        <label for="ing17" class="ingredient-name">3 Roma tomatoes diced</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing18" class="ingredient-checkbox">
+                        <label for="ing18" class="ingredient-name">4 cups water</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing19" class="ingredient-checkbox">
+                        <label for="ing19" class="ingredient-name">2 Bay leaves</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing20" class="ingredient-checkbox">
+                        <label for="ing20" class="ingredient-name">Salt to taste</label>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="instructions-section">
+                <h2 class="section-title"><i class="fas fa-list-ol"></i> Instructions</h2>
+                
+                <h3 class="section-title" style="margin-bottom: 1rem;"><i class="fas fa-mortar-pestle"></i> Make the Pilau Masala:</h3>
+                <ol class="instruction-list">
+                    <li class="instruction-step">
+                        <span class="step-number">1</span>
+                        <p>Place the cumin, black peppers, cinnamon, cardamom and cloves in a dry pan.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">2</span>
+                        <p>Roast over low heat until warmed through and fragrant and blend (I used a coffee grinder) until smooth.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">3</span>
+                        <p>You need just 1 to 1½ tablespoons for this recipe (depending on how fragrant you want the rice to be). Feel free to store the leftover spice powder in an airtight container for up to 3 months, or refrigerate for up to 6 months.</p>
+                    </li>
+                </ol>
+                
+                <h3 class="section-title" style="margin: 2rem 0 1rem;"><i class="fas fa-utensils"></i> Make the Rice Pilau</h3>
+                <ol class="instruction-list" start="4">
+                    <li class="instruction-step">
+                        <span class="step-number">4</span>
+                        <p>Heat a stockpot on medium-high heat. Add oil and heat until hot but not smoking.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">5</span>
+                        <p>Add the sliced onions and fry for 10-15 minutes or till the onions starts to turn golden brown (be careful not to burn it).</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">6</span>
+                        <p>Add the garlic, ginger, serrano pepper, Cook for 1-2 minutes, until fragrant.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">7</span>
+                        <p>Add the cubed beef, pilau masala, beef stock cubes, bay leaves, cilantro, and salt to taste. Cook until the meat browns and caramelizes stirring occasionally about 8 to 10 minutes.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">8</span>
+                        <p>Add the diced tomatoes and cook for 4-5 minutes, until the tomatoes have released their liquid.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">9</span>
+                        <p>Stir in the potatoes and the water. Bring to a boil and cook for 10 minutes.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">10</span>
+                        <p>Stir in the rice, and cover tightly with a foil paper (to keep the steam in) if necessary. Reduce the heat to low and cook for 20 minutes, until the rice is cooked and the liquid is absorbed.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">11</span>
+                        <p>Once the rice is dry, remove the foil paper and fluff with a fork to ensure the seasonings are well distributed all around the rice.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">12</span>
+                        <p>Serve hot with fresh Kachumbari – salsa. Enjoy!</p>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="video-container">
+                <iframe width="100%" height="500" src="https://www.youtube.com/embed/EXAMPLE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            
+            <div class="notes-section">
+                <h2 class="section-title"><i class="fas fa-lightbulb"></i> Recipe Notes</h2>
+                <div class="note-item">
+                    <p>I used beef in this recipe, but chicken or any other type of meat can also be used.</p>
+                </div>
+                
+                <div class="note-item">
+                    <p>I used basmati rice which takes about 20 minutes to cook however, your cooking time may vary depending on the type of rice you use.</p>
+                </div>
+                
+                <div class="note-item">
+                    <p>For even cooking, I seal my pot with aluminum foil during the cooking process so as to have well-separated rice grains after cooking.</p>
+                </div>
+                
+                <div class="note-item">
+                    <p>It's also best to cook on low heat.</p>
+                </div>
+                
+                <div class="note-item">
+                    <p>I love to use freshly ground spices that's why I choose to grind my spices myself it imparts so much flavor!</p>
+                </div>
+            </div>
+            
+            <div class="nutrition-section">
+                <div class="nutrition-card">
+                    <h2 class="nutrition-title">Nutrition Facts</h2>
+                    <div class="nutrition-grid">
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">366</div>
+                            <div class="nutrition-label">Calories</div>
+                            <span class="nutrition-percent">18% Daily Value*</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">22.5g</div>
+                            <div class="nutrition-label">Protein</div>
+                            <span class="nutrition-percent">45% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">3.9g</div>
+                            <div class="nutrition-label">Fat</div>
+                            <span class="nutrition-percent">6% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">59.1g</div>
+                            <div class="nutrition-label">Carbs</div>
+                            <span class="nutrition-percent">20% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">3.4g</div>
+                            <div class="nutrition-label">Fiber</div>
+                            <span class="nutrition-percent">14% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">771mg</div>
+                            <div class="nutrition-label">Sodium</div>
+                            <span class="nutrition-percent">33% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">3.9mg</div>
+                            <div class="nutrition-label">Iron</div>
+                            <span class="nutrition-percent">22% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">347IU</div>
+                            <div class="nutrition-label">Vitamin A</div>
+                            <span class="nutrition-percent">7% DV</span>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-light);">* Percent Daily Values are based on a 2000 calorie diet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

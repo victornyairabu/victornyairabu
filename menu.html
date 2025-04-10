@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victor's Cuisine | Food Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif; /* Modern, clean font */
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8; /* Light, modern background */
+            color: #333;
+        }
+
+        /* Header - Minimal and Clean */
+        .header {
+            background-color: #fff;
+            color: #1a1a2e;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #c8a2c8;
+        }
+
+        .logo span {
+            color: #1a1a2e;
+        }
+
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .nav li {
+            margin-left: 25px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #1a1a2e;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #c8a2c8;
+        }
+
+        .nav a.active {
+            font-weight: 600;
+        }
+
+        /* Menu Hero Section */
+        .menu-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/food-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 12rem 2rem 6rem; /* Increased padding */
+            position: relative;
+            border-bottom: 5px solid #c8a2c8; /* Added border */
+        }
+
+        .menu-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem; /* Increased margin */
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: fadeIn 1s ease-in-out; /* Added animation */
+        }
+
+        .menu-subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-in-out; /* Added animation */
+        }
+
+        /* Dish Container */
+        .dish-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Dish Card - Enhanced Design and 3D Effect */
+        .dish-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d; /* Enable 3D transforms */
+        }
+
+        .dish-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg); /* 3D rotation on hover */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+        }
+
+        .dish-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .dish-info {
+            padding: 2rem;
+        }
+
+        .dish-name {
+            font-size: 2rem; /* Increased size */
+            color: #1a1a2e;
+            margin-bottom: 0.75rem; /* Adjusted margin */
+            font-weight: 600; /* Bolder font */
+        }
+
+        .dish-specs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.25rem; /* Adjusted margin */
+            color: #777; /* Softer color */
+            font-weight: 500;
+        }
+
+        .dish-description {
+            color: #555;
+            margin-bottom: 1.75rem; /* Adjusted margin */
+            line-height: 1.6;
+        }
+
+        /* Menu Button - Modern Style */
+        .btn-menu {
+            background: linear-gradient(to right, #c8a2c8, #8a6c8e); /* Gradient background */
+            color: white;
+            padding: 1rem 2rem; /* Increased padding */
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(128, 102, 142, 0.4); /* Added shadow */
+        }
+
+        .btn-menu:hover {
+            background: linear-gradient(to right, #a581a8, #674b6b); /* Slightly darker gradient */
+            transform: translateY(-5px); /* Stronger lift on hover */
+            box-shadow: 0 10px 25px rgba(128, 102, 142, 0.5); /* Stronger shadow */
+        }
+
+        /* Menu Footer - Refined */
+        .menu-footer {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 2.5rem 2rem; /* Adjusted padding */
+        }
+
+        .social-links-menu {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.25rem; /* Adjusted margin */
+        }
+
+        .social-links-menu a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links-menu a:hover {
+            color: #c8a2c8;
+            transform: translateY(-3px);
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            margin-top: 1rem;
+            color: #c8a2c8;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .menu-title {
+                font-size: 2.5rem;
+            }
+
+            .menu-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .dish-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">Victor<span>.N</span></div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="menu-hero">
+        <h1 class="menu-title">VICTOR.CUISINE</h1>
+        <p class="menu-subtitle">Discover culinary delights with a modern twist, prepared with passion and precision.</p>
+    </section>
+
+    <div class="dish-container">
+        <div class="dish-card">
+            <img src="./beef.jpg" alt="Roasted Beef" class="dish-image">
+            <div class="dish-info">
+                <h3 class="dish-name">Roasted Beef</h3>
+                <div class="dish-specs">
+                    <span>Dish: 8x5pcs</span>
+                    <span>Prep: 2 hours</span>
+                </div>
+                <p class="dish-description">
+                    A perfectly seasoned roast beef with caramelized edges, juicy center, and aromatic herbs.
+                    This exquisite dish will impress your guests with its bold flavor and delicate texture.
+                </p>
+                <a href="recipe1.html" class="btn-menu">View Full Recipe</a>
+            </div>
+        </div>
+
+        <div class="dish-card">
+            <img src="./BeefPilau.jpg" alt="Pilau" class="dish-image">
+            <div class="dish-info">
+                <h3 class="dish-name">Pilau</h3>
+                <div class="dish-specs">
+                    <span>Dish: 6 servings</span>
+                    <span>Prep: 1.5 hours</span>
+                </div>
+                <p class="dish-description">
+                    Fragrant East African spiced rice dish with tender meat and aromatic spices.
+                    A celebration of flavors that brings warmth and comfort to every bite.
+                </p>
+                <a href="recipe2.html" class="btn-menu">View Full Recipe</a>
+            </div>
+        </div>
+
+        <div class="dish-card">
+            <img src="./beef1.jpg" alt="Nyama Choma" class="dish-image">
+            <div class="dish-info">
+                <h3 class="dish-name">Nyama Choma</h3>
+                <div class="dish-specs">
+                    <span>Dish: 4 servings</span>
+                    <span>Prep: 3 hours</span>
+                </div>
+                <p class="dish-description">
+                    Authentic Kenyan grilled meat with a smoky char and succulent interior.
+                    Marinated with secret spices and grilled to perfection over open flame.
+                </p>
+                <a href="#" class="btn-menu">Coming Soon</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="menu-footer">
+        <div class="social-links-menu">
+            <a href="https://instagram.com/nyairas_" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:victornyairabu3@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p>© 2023 Victor's Cuisine. All rights reserved.</p>
+        <div class="signature">Victor Nyairabu</div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

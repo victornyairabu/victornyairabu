@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Roasted Beef | Victor's Cuisine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF6584;
+            --secondary-color: #6C63FF;
+            --accent-color: #48BB78;
+            --dark-color: #2D3748;
+            --light-color: #F7FAFC;
+            --text-color: #1A202C;
+            --text-light: #718096;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .recipe-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .recipe-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .recipe-title {
+            font-size: 3rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .recipe-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .recipe-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .ingredients-section, .instructions-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title i {
+            color: var(--primary-color);
+        }
+        
+        .ingredient-list {
+            list-style: none;
+        }
+        
+        .ingredient-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .ingredient-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            accent-color: var(--primary-color);
+        }
+        
+        .ingredient-name {
+            font-weight: 500;
+        }
+        
+        .instruction-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .instruction-step {
+            position: relative;
+            padding-left: 3.5rem;
+            margin-bottom: 1.5rem;
+            counter-increment: step-counter;
+        }
+        
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .notes-section {
+            grid-column: span 2;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            margin-top: 2rem;
+        }
+        
+        .note-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .note-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 3D Nutrition Facts */
+        .nutrition-section {
+            grid-column: span 2;
+            perspective: 1000px;
+            margin-top: 3rem;
+        }
+        
+        .nutrition-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform-style: preserve-3d;
+            transform: rotateY(10deg);
+            transition: transform 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nutrition-card:hover {
+            transform: rotateY(0deg);
+        }
+        
+        .nutrition-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .nutrition-title {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .nutrition-item {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(108, 99, 255, 0.05);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+        
+        .nutrition-item:hover {
+            transform: translateY(-5px) translateZ(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .nutrition-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+        
+        .nutrition-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .nutrition-percent {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.2rem 0.5rem;
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .recipe-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .notes-section, .nutrition-section {
+                grid-column: span 1;
+            }
+            
+            .recipe-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Victor<span>.N</span></div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <h1 class="recipe-title">Perfect Roasted Beef</h1>
+            <img src="./beef1.jpg" alt="Roasted Beef" class="recipe-image">
+        </div>
+        
+        <div class="recipe-content">
+            <div class="ingredients-section">
+                <h2 class="section-title"><i class="fas fa-shopping-basket"></i> Ingredients</h2>
+                <h3>Main</h3>
+                <ul class="ingredient-list">
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing1" class="ingredient-checkbox">
+                        <label for="ing1" class="ingredient-name">1.5kg / 3 lb Top Blade Roast, Bolar Blade, Eye of Round Roast, Oyster Blade Roast or other economical roast beef cut</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing2" class="ingredient-checkbox">
+                        <label for="ing2" class="ingredient-name">1 tbsp olive oil</label>
+                    </li>
+                </ul>
+                
+                <h3>Marinade</h3>
+                <ul class="ingredient-list">
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing3" class="ingredient-checkbox">
+                        <label for="ing3" class="ingredient-name">3 garlic cloves, minced (2.5 tsp jar)</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing4" class="ingredient-checkbox">
+                        <label for="ing4" class="ingredient-name">1 tbsp Worcestershire Sauce</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing5" class="ingredient-checkbox">
+                        <label for="ing5" class="ingredient-name">2 tbsp dijon mustard</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing6" class="ingredient-checkbox">
+                        <label for="ing6" class="ingredient-name">1/4 cup (60 ml) balsamic vinegar</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing7" class="ingredient-checkbox">
+                        <label for="ing7" class="ingredient-name">1/2 cup (125 ml) soy sauce</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing8" class="ingredient-checkbox">
+                        <label for="ing8" class="ingredient-name">1/4 cup (60 ml) olive oil</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing9" class="ingredient-checkbox">
+                        <label for="ing9" class="ingredient-name">1 tbsp white sugar</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing10" class="ingredient-checkbox">
+                        <label for="ing10" class="ingredient-name">2 tsp onion powder</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing11" class="ingredient-checkbox">
+                        <label for="ing11" class="ingredient-name">1 tsp black pepper</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing12" class="ingredient-checkbox">
+                        <label for="ing12" class="ingredient-name">2 tsp dried thyme</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing13" class="ingredient-checkbox">
+                        <label for="ing13" class="ingredient-name">1 tsp dried rosemary</label>
+                    </li>
+                </ul>
+                
+                <h3>Vegetables (optional)</h3>
+                <ul class="ingredient-list">
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing14" class="ingredient-checkbox">
+                        <label for="ing14" class="ingredient-name">3 potatoes, cut into 5cm/2" chunks</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing15" class="ingredient-checkbox">
+                        <label for="ing15" class="ingredient-name">4 carrots, peeled cut into 4cm/1.7" pieces</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing16" class="ingredient-checkbox">
+                        <label for="ing16" class="ingredient-name">Salt and pepper</label>
+                    </li>
+                </ul>
+                
+                <h3>Gravy (optional)</h3>
+                <ul class="ingredient-list">
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing17" class="ingredient-checkbox">
+                        <label for="ing17" class="ingredient-name">4 tbsp (50g) flour</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing18" class="ingredient-checkbox">
+                        <label for="ing18" class="ingredient-name">2 1/2 cups (625 ml) beef broth (stock), low sodium</label>
+                    </li>
+                    <li class="ingredient-item">
+                        <input type="checkbox" id="ing19" class="ingredient-checkbox">
+                        <label for="ing19" class="ingredient-name">3/4 tsp black pepper, coarsely ground</label>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="instructions-section">
+                <h2 class="section-title"><i class="fas fa-list-ol"></i> Instructions</h2>
+                <ol class="instruction-list">
+                    <li class="instruction-step">
+                        <span class="step-number">1</span>
+                        <p>Mix Marinade ingredients in a large ziplock bag.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">2</span>
+                        <p>Add beef, marinade for 2 days (24 hrs min, 3 days max).</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">3</span>
+                        <p>Take beef out of fridge 1 hour prior to cooking.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">4</span>
+                        <p>Preheat oven to 240°C/450°F.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">5</span>
+                        <p>Toss vegetables in all beef marinade liquid, spread out in ovenproof skillet, top with beef.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">6</span>
+                        <p>Drizzle with oil, roast 20 minutes.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">7</span>
+                        <p>Turn oven down to 180°C/350°F (160°C fan), roast for a further 35 - 40 minutes or until a meat thermometer inserted into the centre registers 44°C / 111°F for medium rare.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">8</span>
+                        <p>Remove beef onto plate, cover loosely in foil and rest for 20 - 30 minutes (internal temp will rise to 52°C / 125°F which is perfect medium rare!).</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">9</span>
+                        <p>Return vegetables to oven to brown a bit, if needed.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">10</span>
+                        <p>To serve, slice beef thinly. Serve roast veg and juices in the skillet OR make gravy (below)!</p>
+                    </li>
+                </ol>
+                
+                <h3 class="section-title" style="margin-top: 2rem;"><i class="fas fa-grav"></i> Gravy (optional)</h3>
+                <ol class="instruction-list" start="11">
+                    <li class="instruction-step">
+                        <span class="step-number">11</span>
+                        <p>Remove vegetables, leave juices in skillet. Skim excess off fat from surface, leave behind 2 tbsp.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">12</span>
+                        <p>Place on medium high heat on stove. Add flour and stir for 1 minute.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">13</span>
+                        <p>Slowly add beef stock while stirring. If needed, use whisk to remove lumps.</p>
+                    </li>
+                    <li class="instruction-step">
+                        <span class="step-number">14</span>
+                        <p>Bring to simmer for 2 minutes until thickens to gravy consistency. Stir in pepper and salt if needed. Serve with beef.</p>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="notes-section">
+                <h2 class="section-title"><i class="fas fa-lightbulb"></i> Recipe Notes</h2>
+                <div class="note-item">
+                    <h3 class="note-title">1. Beef Cuts</h3>
+                    <p>Recipe designed to add flavour and tenderise economical roast beef cut, such as:</p>
+                    <ul>
+                        <li>Oyster Blade Roast (Aus) / Top Blade Roast (US)</li>
+                        <li>Bolar Blade (Aus/parts of UK)</li>
+                        <li>Eye of Round Roast (US)</li>
+                        <li>Silverside (Aus/UK) / Bottom Round Roast (US) - no CORNED silverside, it's been brined already</li>
+                        <li>Rump Roast (Aust) / Top Sirloin Roast (US) - only if you get super economical ones</li>
+                        <li>Topside Roast (Aus/UK name) / Top Round Roast (US) - only if you get super economical ones</li>
+                    </ul>
+                    <p><strong>Do not use for:</strong> expensive roast beef cuts like prime rib / standing rib roast, scotch fillet roast (which is standing rib minus the bone), tenderloin, strip loin roast / Porterhouse roast, chuck, brisket, ribs or shank (these need to be slow cooked, recipe needs amendment)</p>
+                </div>
+                
+                <div class="note-item">
+                    <h3 class="note-title">2. Marinade options</h3>
+                    <ul>
+                        <li>Mustard - can leave out or use other mustard</li>
+                        <li>Balsamic - 2 tbsp vinegar</li>
+                        <li>Sugar - honey, maple, other liquid sweeteners</li>
+                        <li>Herbs - any of choice</li>
+                        <li>Onion powder - garlic powder, or omit</li>
+                    </ul>
+                </div>
+                
+                <div class="note-item">
+                    <h3 class="note-title">3. Internal Temperature of Roast Beef</h3>
+                    <p>The internal temperature will rise by 8°C / 14°F while it is resting so it needs to be taken out of the oven before it reaches your desired doneness. Here are the internal temperatures of cooked beef:</p>
+                    <ul>
+                        <li><strong>Rare:</strong> 49°C/120°F. Remove from oven when it is 41°C/ 106°F.</li>
+                        <li><strong>Medium rare:</strong> 52°C / 125°F. Remove from oven when it is 44°C / 111°F. Medium rare is my preference.</li>
+                        <li><strong>Medium:</strong> 55°C / 130°F. Remove from oven at 48°C/118°F.</li>
+                        <li><strong>Medium well done:</strong> 57°C/135°F. Remove from oven at 49°C/120°F.</li>
+                    </ul>
+                    <p><strong>COOK TIMES for different sizes:</strong> Add 10 -15 minutes for each 1 kg/ 2 lb, but start checking the internal temp early just to be sure.</p>
+                    <p><strong>TIP:</strong> Once the internal temp hits 40°C/104°F, the internal temp increases by about 5°C/10°F every 3-4 minutes.</p>
+                </div>
+                
+                <div class="note-item">
+                    <h3 class="note-title">4. Gravy</h3>
+                    <p>Gravy is optional, the beef is flavour infused and ultra juicy, gravy is not necessary (but I personally never say no!)</p>
+                </div>
+            </div>
+            
+            <div class="nutrition-section">
+                <div class="nutrition-card">
+                    <h2 class="nutrition-title">Nutrition Facts</h2>
+                    <div class="nutrition-grid">
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">518</div>
+                            <div class="nutrition-label">Calories</div>
+                            <span class="nutrition-percent">26% Daily Value*</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">63g</div>
+                            <div class="nutrition-label">Protein</div>
+                            <span class="nutrition-percent">126% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">17g</div>
+                            <div class="nutrition-label">Fat</div>
+                            <span class="nutrition-percent">26% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">23g</div>
+                            <div class="nutrition-label">Carbs</div>
+                            <span class="nutrition-percent">8% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">4g</div>
+                            <div class="nutrition-label">Fiber</div>
+                            <span class="nutrition-percent">17% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">1366mg</div>
+                            <div class="nutrition-label">Sodium</div>
+                            <span class="nutrition-percent">59% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">9.6mg</div>
+                            <div class="nutrition-label">Iron</div>
+                            <span class="nutrition-percent">53% DV</span>
+                        </div>
+                        
+                        <div class="nutrition-item">
+                            <div class="nutrition-value">6805IU</div>
+                            <div class="nutrition-label">Vitamin A</div>
+                            <span class="nutrition-percent">136% DV</span>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-light);">* Percent Daily Values are based on a 2000 calorie diet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
